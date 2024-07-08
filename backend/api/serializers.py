@@ -7,14 +7,19 @@ from .models import ModelName, TaskName, DefinedUser
 class ModelNameSerializer(serializers.ModelSerializer):
     class Meta:
         model = ModelName
-        fields = [ 'id', 'title']
-
+        fields = [ 'id', 'title', 'userinputs_count']
+    userinputs_count = serializers.IntegerField(
+        read_only=True
+    )
 
 
 class TaskNameSerializer(serializers.ModelSerializer):
     class Meta:
         model = TaskName
-        fields = [ 'id', 'title']
+        fields = [ 'id', 'title', 'userinputs_count']
+    userinputs_count = serializers.IntegerField(
+        read_only=True
+    )
 
 
 # class UserSerializer(serializers.ModelSerializer):
@@ -30,8 +35,14 @@ class TaskNameSerializer(serializers.ModelSerializer):
 class DefinedUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = DefinedUser
-        fields = ["id", "username", "email", "password"]
+        fields = [
+            "id", "username", "email", "password",
+            "userinputs_count"
+        ]
         extra_kwargs = {"password": {"write_only": True}}
+    userinputs_count = serializers.IntegerField(
+        read_only=True
+    )
 
     
 class UserTextInputSerializer(serializers.ModelSerializer):
