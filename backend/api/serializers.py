@@ -1,13 +1,59 @@
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from rest_framework import serializers
+from .models import UserTextInput, ModelPrediction, UserCorrection
+from .models import ModelName, TaskName, DefinedUser
 
 
-class UserSerializer(serializers.ModelSerializer):
+class ModelNameSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = ModelName
+        fields = [ 'id', 'title']
+
+
+
+class TaskNameSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TaskName
+        fields = [ 'id', 'title']
+
+
+# class UserSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = ["id", "username", "email", "password"]
+#         extra_kwargs = {"password": {"write_only": True}}
+
+#     def create(self, validated_data):
+#         user = User.objects.create_user(**validated_data)
+#         return user
+    
+class DefinedUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DefinedUser
         fields = ["id", "username", "email", "password"]
         extra_kwargs = {"password": {"write_only": True}}
 
-    def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        return user
+    
+class UserTextInputSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserTextInput
+        fields = [
+            'id', 'input_text', 'created_at',
+            'user', 'model_name', 'task_name'
+        ]
+        # extra_kwargs = {'': {'read_only': True}}
+
+class ModelPredictionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ModelPrediction
+        fields = [
+            'input_text', 'prediction', 'created_at'
+        ]
+
+
+class UserCorrectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserCorrection
+        fields = [
+            'prediction', 'correction', 'created_at'
+        ]
