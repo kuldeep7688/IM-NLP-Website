@@ -17,8 +17,12 @@ router.register(
     r'tasknames', views.TaskNameViewSet
 )
 router.register(
-    r'savemodelprediction', views.SaveModelPredictionView,
-    basename='savemodelpredictions'
+    r'modelprediction', views.ModelPredictionView,
+    basename='modelprediction'
+)
+router.register(
+    r'usercorrection', views.UserCorrectionView,
+    basename='usercorrection'
 )
 
 # print(router.urls)

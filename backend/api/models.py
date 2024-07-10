@@ -16,7 +16,7 @@ class DefinedUser(models.Model):
 
 
 class ModelName(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, unique=True)
     featured_usertextinput = models.ForeignKey(
         "UserTextInput", on_delete=models.SET_NULL,
         null=True, related_name='+'
@@ -27,7 +27,7 @@ class ModelName(models.Model):
 
 
 class TaskName(models.Model):
-    title = models.CharField(max_length=255)
+    title = models.CharField(max_length=255, unique=True)
     featured_usertextinput = models.ForeignKey(
         "UserTextInput", on_delete=models.SET_NULL,
         null=True, related_name='+'
@@ -58,7 +58,7 @@ class UserTextInput(models.Model):
 
     # def __str__(self):
     #     return self.input_text[:20]
-    
+
 
 # prediction model
 class ModelPrediction(models.Model):
@@ -70,6 +70,6 @@ class ModelPrediction(models.Model):
 
 
 class UserCorrection(models.Model):
-    prediction = models.OneToOneField(ModelPrediction, on_delete=models.CASCADE)
+    prediction = models.ForeignKey(ModelPrediction, on_delete=models.CASCADE)
     correction = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)

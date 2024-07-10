@@ -11,7 +11,6 @@ import Home from "./pages/Home";
 import InteractWithModel from "./pages/InteractionWithModel";
 import ModelNames from "./pages/ModelNames";
 
-
 function App() {
   return (
     <BrowserRouter>

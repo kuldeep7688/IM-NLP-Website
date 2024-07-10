@@ -1,18 +1,20 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.db.models import Count
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
+from rest_framework.filters import SearchFilter
 # from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import UserTextInput, ModelPrediction, UserCorrection, DefinedUser, ModelName, TaskName
 # from .serializers import UserSerializer
 from .serializers import DefinedUserSerializer, UserTextInputSerializer
 from .serializers import ModelPredictionSerializer, UserCorrectionSerializer
-from .serializers import  ModelNameSerializer, TaskNameSerializer
+from .serializers import ModelNameSerializer, TaskNameSerializer
 # Create your views here.
 
 
@@ -72,6 +74,9 @@ class ModelNameViewSet(ModelViewSet):
         userinputs_count=Count('userinputs')
     )
     serializer_class = ModelNameSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = []
+    search_fields = ['title']
 
     def get_serializer_context(self):
         return {"request": self.request}
@@ -82,6 +87,9 @@ class TaskNameViewSet(ModelViewSet):
         userinputs_count=Count('userinputs')
     )
     serializer_class = TaskNameSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = []
+    search_fields = ['title']
 
     def get_serializer_context(self):
         return {"request": self.request}
@@ -115,6 +123,11 @@ class UserInputViewSet(ModelViewSet):
 #     serializer.save()
 #     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-class SaveModelPredictionView(ModelNameViewSet):
+class ModelPredictionView(ModelNameViewSet):
     queryset = ModelPrediction.objects.all()
     serializer_class = ModelPredictionSerializer
+
+
+class UserCorrectionView(ModelNameViewSet):
+    queryset = UserCorrection.objects.all()
+    serializer_class = UserCorrectionSerializer

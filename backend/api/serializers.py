@@ -7,7 +7,7 @@ from .models import ModelName, TaskName, DefinedUser
 class ModelNameSerializer(serializers.ModelSerializer):
     class Meta:
         model = ModelName
-        fields = [ 'id', 'title', 'userinputs_count']
+        fields = ['id', 'title', 'userinputs_count']
     userinputs_count = serializers.IntegerField(
         read_only=True
     )
@@ -16,7 +16,7 @@ class ModelNameSerializer(serializers.ModelSerializer):
 class TaskNameSerializer(serializers.ModelSerializer):
     class Meta:
         model = TaskName
-        fields = [ 'id', 'title', 'userinputs_count']
+        fields = ['id', 'title', 'userinputs_count']
     userinputs_count = serializers.IntegerField(
         read_only=True
     )
@@ -31,7 +31,7 @@ class TaskNameSerializer(serializers.ModelSerializer):
 #     def create(self, validated_data):
 #         user = User.objects.create_user(**validated_data)
 #         return user
-    
+
 class DefinedUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = DefinedUser
@@ -44,7 +44,7 @@ class DefinedUserSerializer(serializers.ModelSerializer):
         read_only=True
     )
 
-    
+
 class UserTextInputSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserTextInput
@@ -54,11 +54,12 @@ class UserTextInputSerializer(serializers.ModelSerializer):
         ]
         # extra_kwargs = {'': {'read_only': True}}
 
+
 class ModelPredictionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ModelPrediction
         fields = [
-            'input_text', 'prediction', 'created_at'
+            'id', 'input_text', 'prediction', 'created_at'
         ]
 
 
@@ -66,5 +67,5 @@ class UserCorrectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserCorrection
         fields = [
-            'prediction', 'correction', 'created_at'
+            'id', 'prediction', 'correction', 'created_at'
         ]
